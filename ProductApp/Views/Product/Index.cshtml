@@ -1,0 +1,66 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "Ürünler";
+}
+
+<div class="row">
+    <div class="col-md-3">
+
+        <form method="get"
+              asp-action="index">
+            <div class="form-group my-3">
+                <input type="number" name="minprice" class="form-control" placeholder="Minimum Fiyat" />
+            </div>
+
+            <div class="form-group my-3">
+                <input type="number" name="maxprice" class="form-control" placeholder="Maksimum Fiyat" />
+            </div>
+
+            <div class="form-group my-3">
+                <input name="searchterm" class="form-control" placeholder="Arama" />
+            </div>
+
+            <div class="form-group my-3">
+                <button type="submit" class="btn btn-outline-dark">Uygula!</button>
+            </div>
+
+        </form>
+
+
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var prd in Model)
+            {
+                <div class="col-md-4 my-2">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top"
+                         src="@prd.ImageUrl"
+                         alt="@prd.ProductName">
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-8"><h5>@prd.ProductName</h5></div>
+                                <div class="col-6 text-primary">@prd.Price.ToString("c")</div>
+                            </div>
+                            <p class="card-text">
+                                @prd.Description
+                            </p>
+                            <p class="text-info">
+                                @prd.AtCreated.Value.ToString("d")
+                            </p>
+                            <a asp-controller="Product"
+                           asp-action="GetOneProduct"
+                           asp-route-id="@prd.Id"
+                           class="btn btn-outline-primary">Detaylar!</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+

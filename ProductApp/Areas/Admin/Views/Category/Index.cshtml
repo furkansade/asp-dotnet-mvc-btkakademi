@@ -1,0 +1,50 @@
+﻿@model List<Category>
+
+@{
+    ViewData["Title"] = "Kategoriler";
+}
+
+<div>
+    <a asp-controller="Category"
+       asp-action="CreateOneCategory"
+       class="btn btn-outline-success my-3">
+        Yeni Kategori Oluştur!
+    </a>
+</div>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Kategori</th>
+            <th scope="col">İşlemler</th>
+        </tr>
+    </thead>
+    @foreach (var category in Model)
+    {
+        <tbody>
+            <tr>
+                <th scope="row">@category.CategoryId</th>
+                <td>@category.CategoryName</td>
+                <td>
+                    <a asp-controller="Category"
+                   asp-action="UpdateOneCategory"
+                   asp-route-id="@category.CategoryId"
+                   class="btn btn-outline-warning">Güncelle!</a>
+
+                    <form method="post"
+                      asp-action="DeleteOneCategory"
+                      asp-controller="Category"
+                      asp-route-id="@category.CategoryId">
+                        <button type="submit"
+                            class="btn btn-outline-danger">
+                            Sil!
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+

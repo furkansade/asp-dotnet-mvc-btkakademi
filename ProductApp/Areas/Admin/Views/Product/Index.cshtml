@@ -1,0 +1,65 @@
+﻿@model List<Product>
+
+
+<div class="text-center">
+    <h3 class="display-5">Ürünlerin</h3>
+</div>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ürün Fotoğrafı</th>
+            <th scope="col">Ürün</th>
+            <th scope="col">Detaylar</th>
+            <th scope="col">Eklenme Tarihi</th>
+            <th scope="col">Fiyat</th>
+            <th scope="col">İşlemler</th>
+
+        </tr>
+    </thead>
+    @foreach (var prd in Model)
+    {
+
+
+        <tbody>
+            <tr>
+                <th scope="row">@prd.Id</th>
+                <td><img width="80px" src="@prd.ImageUrl"></td>
+                <td>@prd.ProductName</td>
+                <td>@prd.Description</td>
+                <td>@prd.AtCreated.Value.ToString("d")</td>
+                <td>@prd.Price.ToString("c")</td>
+                <td>
+                    <a asp-controller="Product"
+                   asp-action="UpdateOneProduct"
+                   asp-route-id="@prd.Id"
+                   class="btn btn-outline-warning">Güncelle!</a>
+
+                    <form method="post"
+                      asp-action="DeleteOneProduct"
+                      asp-controller="Product"
+                      asp-route-id="@prd.Id">
+                        <button type="submit"
+                            class="btn btn-outline-danger my-2">
+                            Sil!
+                        </button>
+                    </form>
+                </td>
+
+            </tr>
+        </tbody>
+    }
+</table>
+
+<div>
+    <a asp-area="Admin"
+       asp-controller="Product"
+       asp-action="CreateOneProduct"
+       class="btn btn-outline-success">
+        Ürün Ekle!
+    </a>
+</div>
+
+
